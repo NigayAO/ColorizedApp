@@ -13,7 +13,7 @@ protocol SettingColorViewControllerDelegate {
 
 class ResultViewController: UIViewController {
     
-    private var baseColor = ChooseColor(red: 0.5, green: 0.1, blue: 1)
+    private var baseColor = ChooseColor(red: 1, green: 1, blue: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,6 @@ class ResultViewController: UIViewController {
         settinColorVC.chooseColor = baseColor
         settinColorVC.delegate = self
     }
-    
 }
 
 //MARK: - SettingColorViewControllerDelegate

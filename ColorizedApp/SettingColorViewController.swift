@@ -25,6 +25,7 @@ class SettingColorViewController: UIViewController {
     
     var chooseColor: ChooseColor!
     var delegate: SettingColorViewControllerDelegate!
+    var activeTextField: UITextField?
     
     @IBOutlet weak var button: UIButton!
     
@@ -36,6 +37,12 @@ class SettingColorViewController: UIViewController {
         
         customization()
         initialSet()
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @IBAction func applyPressed(_ sender: UIButton) {
@@ -53,24 +60,34 @@ class SettingColorViewController: UIViewController {
         greenTextField.tag = 1
         blueTextField.tag = 2
         
-        guard let value = sender.text else { return }
+        guard let number = Double(sender.text!) else { return }
         
-        switch sender.tag {
-        case 0:
-            redSlider.value = Float(value) ?? 0
-            redValue.text = value
-        case 1:
-            greenSlider.value = Float(value) ?? 0
-            greenValue.text = value
-        case 2:
-            blueSlider.value = Float(value) ?? 0
-            blueValue.text = value
-        default:
-            print("Not work")
+        if number > 1 {
+            showAlert(textField: sender)
+        } else {
+            guard let value = sender.text else { return }
+            
+            switch sender.tag {
+            case 0:
+                redSlider.value = Float(value) ?? 0
+                redValue.text = value
+            case 1:
+                greenSlider.value = Float(value) ?? 0
+                greenValue.text = value
+            case 2:
+                blueSlider.value = Float(value) ?? 0
+                blueValue.text = value
+            default:
+                print("Not work")
+            }
         }
         updateUI()
     }
-    
+}
+
+//MARK: - Private function
+
+extension SettingColorViewController {
     private func customization() {
         button.layer.cornerRadius = 10
         displayView.layer.cornerRadius = 15
@@ -87,6 +104,10 @@ class SettingColorViewController: UIViewController {
         let blue = chooseColor.blue
         
         setSliderValue(red: red, green: green, blue: blue)
+        
+        toolbar(textField: redTextField)
+        toolbar(textField: greenTextField)
+        toolbar(textField: blueTextField)
         
         updateUI()
     }
@@ -122,7 +143,6 @@ class SettingColorViewController: UIViewController {
     }
     
     private func updateUI() {
-        
         let red = redSlider.value
         let green = greenSlider.value
         let blue = blueSlider.value
@@ -133,13 +153,70 @@ class SettingColorViewController: UIViewController {
         
         displayView.backgroundColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
     }
-    
 }
 
-//MARK: - extension for TextFiel
+//MARK: - TextFielDelegate
 
 extension SettingColorViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeTextField = nil
+    }
 }
+
+//MARK: - Toolbar
+extension SettingColorViewController {
+    func toolbar(textField: UITextField) {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 50))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
+        
+        toolbar.items = [flexibleSpace, doneButton]
+        toolbar.sizeToFit()
+        textField.inputAccessoryView = toolbar
+    }
+    
+    @objc private func didTapDone() {
+        view.endEditing(true)
+    }
+}
+
+//MARK: - AlertController
+
+extension SettingColorViewController {
+    
+    private func showAlert(textField: UITextField) {
+        let alert = UIAlertController(title: "Error!", message: "Value can't be more than 1", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel) { _ in
+            textField.text = "1.0"
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+}
+
+//MARK: - Move keyboard
+
+extension SettingColorViewController {
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    @objc private func keyboardWillHide() {
+        view.frame.origin.y = 0
+    }
+}
+
+
