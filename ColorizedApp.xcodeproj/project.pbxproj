@@ -62,15 +62,39 @@
 			children = (
 				1D4758482735269B0049F08F /* AppDelegate.swift */,
 				1D47584A2735269B0049F08F /* SceneDelegate.swift */,
-				1D47585E2735287F0049F08F /* ModelColor.swift */,
-				1D47584C2735269B0049F08F /* ResultViewController.swift */,
-				1D47585C273528720049F08F /* SettingColorViewController.swift */,
-				1D47584E2735269B0049F08F /* Main.storyboard */,
+				1DF3E7D82736A7D900C66E37 /* Model */,
+				1DF3E7D92736A7E500C66E37 /* Contollers */,
+				1DF3E7DA2736A7EE00C66E37 /* View */,
 				1D4758512735269C0049F08F /* Assets.xcassets */,
 				1D4758532735269C0049F08F /* LaunchScreen.storyboard */,
 				1D4758562735269C0049F08F /* Info.plist */,
 			);
 			path = ColorizedApp;
+			sourceTree = "<group>";
+		};
+		1DF3E7D82736A7D900C66E37 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1D47585E2735287F0049F08F /* ModelColor.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DF3E7D92736A7E500C66E37 /* Contollers */ = {
+			isa = PBXGroup;
+			children = (
+				1D47584C2735269B0049F08F /* ResultViewController.swift */,
+				1D47585C273528720049F08F /* SettingColorViewController.swift */,
+			);
+			path = Contollers;
+			sourceTree = "<group>";
+		};
+		1DF3E7DA2736A7EE00C66E37 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D47584E2735269B0049F08F /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
