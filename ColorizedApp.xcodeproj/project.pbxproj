@@ -14,7 +14,6 @@
 		1D4758522735269C0049F08F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D4758512735269C0049F08F /* Assets.xcassets */; };
 		1D4758552735269C0049F08F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D4758532735269C0049F08F /* LaunchScreen.storyboard */; };
 		1D47585D273528720049F08F /* SettingColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D47585C273528720049F08F /* SettingColorViewController.swift */; };
-		1D47585F2735287F0049F08F /* ModelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D47585E2735287F0049F08F /* ModelColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		1D4758542735269C0049F08F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D4758562735269C0049F08F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D47585C273528720049F08F /* SettingColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingColorViewController.swift; sourceTree = "<group>"; };
-		1D47585E2735287F0049F08F /* ModelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 			children = (
 				1D4758482735269B0049F08F /* AppDelegate.swift */,
 				1D47584A2735269B0049F08F /* SceneDelegate.swift */,
-				1DF3E7D82736A7D900C66E37 /* Model */,
 				1DF3E7D92736A7E500C66E37 /* Contollers */,
 				1DF3E7DA2736A7EE00C66E37 /* View */,
 				1D4758512735269C0049F08F /* Assets.xcassets */,
@@ -70,14 +67,6 @@
 				1D4758562735269C0049F08F /* Info.plist */,
 			);
 			path = ColorizedApp;
-			sourceTree = "<group>";
-		};
-		1DF3E7D82736A7D900C66E37 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1D47585E2735287F0049F08F /* ModelColor.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1DF3E7D92736A7E500C66E37 /* Contollers */ = {
@@ -170,7 +159,6 @@
 			files = (
 				1D47584D2735269B0049F08F /* ResultViewController.swift in Sources */,
 				1D4758492735269B0049F08F /* AppDelegate.swift in Sources */,
-				1D47585F2735287F0049F08F /* ModelColor.swift in Sources */,
 				1D47585D273528720049F08F /* SettingColorViewController.swift in Sources */,
 				1D47584B2735269B0049F08F /* SceneDelegate.swift in Sources */,
 			);

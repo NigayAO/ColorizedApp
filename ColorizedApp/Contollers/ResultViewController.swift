@@ -8,21 +8,18 @@
 import UIKit
 
 protocol SettingColorViewControllerDelegate {
-    func installColor(for color: ChooseColor)
+    func installColor(for color: UIColor)
 }
 
 class ResultViewController: UIViewController {
     
-    private var baseColor = ChooseColor(red: 1, green: 1, blue: 1)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = baseColor.getColor()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settinColorVC = segue.destination as? SettingColorViewController else { return }
-        settinColorVC.chooseColor = baseColor
+        settinColorVC.currentColor = view.backgroundColor
         settinColorVC.delegate = self
     }
 }
@@ -30,11 +27,22 @@ class ResultViewController: UIViewController {
 //MARK: - SettingColorViewControllerDelegate
 
 extension ResultViewController: SettingColorViewControllerDelegate {
-    func installColor(for color: ChooseColor) {
-        baseColor.red = color.red
-        baseColor.green = color.green
-        baseColor.blue = color.blue
-        
-        view.backgroundColor = baseColor.getColor()
+    func installColor(for color: UIColor) {
+        view.backgroundColor = color
+    }
+}
+
+//MARK: - Extension for UIColor
+
+extension UIColor {
+    var colorComponents: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
+        guard let components = self.cgColor.components else { return nil }
+
+        return (
+            red: components[0],
+            green: components[1],
+            blue: components[2],
+            alpha: components[3]
+        )
     }
 }
